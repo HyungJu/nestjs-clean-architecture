@@ -7,6 +7,6 @@ export class TestUserCreator {
   constructor(private userRepository: UserRepository) {}
 
   public call(data: UserCreateCommand) {
-    return this.userRepsitory.create(data);
+    return this.userRepository.create(data);
   }
 }

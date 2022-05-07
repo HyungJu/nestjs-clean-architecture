@@ -2,6 +2,7 @@ import { DatabaseService } from '@infrastructure/database/database.service';
 import { Injectable } from '@nestjs/common';
 import { User } from '../domain/user.entity';
 import { UserRepository } from '../domain/user.repository';
+
 @Injectable()
 export class DatabaseUserRepository implements UserRepository {
   constructor(private databaseService: DatabaseService) {}
@@ -18,7 +19,7 @@ export class DatabaseUserRepository implements UserRepository {
     return {
       email: user.email,
       id: +user.id,
-      name: user.name
+      name: user.name,
     };
   }
 }

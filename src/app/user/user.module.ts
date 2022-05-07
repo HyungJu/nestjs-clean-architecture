@@ -1,4 +1,3 @@
-import { proxy } from '@infrastructure/common/proxy.provider';
 import { DatabaseModule } from '@infrastructure/database/database.module';
 import { Module } from '@nestjs/common';
 import { DatabaseUserRepository } from './data-access/database-user.repository';

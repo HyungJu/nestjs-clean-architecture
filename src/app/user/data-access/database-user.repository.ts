@@ -6,11 +6,19 @@ import { UserRepository } from '../domain/user.repository';
 export class DatabaseUserRepository implements UserRepository {
   constructor(private databaseService: DatabaseService) {}
 
-  create(data: { email: string; name: string }): Promise<User | null> {
-    return this.databaseService.user.create({
+  async create(data: { email: string; name: string }): Promise<User | null> {
+    const user = await this.databaseService.user.create({
       data: {
         email: data.email,
+        name: data.name,
       },
     });
+
+    console.log(user);
+    return {
+      email: user.email,
+      id: +user.id,
+      name: user.name
+    };
   }
 }

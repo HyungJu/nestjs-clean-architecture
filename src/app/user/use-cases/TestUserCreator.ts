@@ -4,7 +4,7 @@ import { UserCreateCommand } from '../dtos/UserCreateCommand';
 
 @Injectable()
 export class TestUserCreator {
-  constructor(private userRepsitory: UserRepository) {}
+  constructor(private userRepository: UserRepository) {}
 
   public call(data: UserCreateCommand) {
     return this.userRepsitory.create(data);

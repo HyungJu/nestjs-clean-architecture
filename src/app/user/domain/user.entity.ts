@@ -1,11 +1,9 @@
-import { IsNotEmpty, IsString } from 'class-validator';
 export class User {
-  readonly id?: number;
-
-  @IsString()
-  @IsNotEmpty()
+  id!: string;
   email!: string;
-
-  @IsString()
-  name!: string | null;
+  name!: string;
+  password!: string;
+  createdAt!: Date;
+  updatedAt!: Date;
+  deletedAt!: Date | null;
 }

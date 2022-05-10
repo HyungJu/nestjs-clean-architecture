@@ -5,7 +5,7 @@ import { Injectable } from '@nestjs/common';
 export class UserJoinEvent {
   @OnEvent('user.joined')
   handleOrderCreatedEvent(payload: any): void {
-    console.log('TEST');
+    console.log('Event Received');
     console.log(payload);
   }
 }

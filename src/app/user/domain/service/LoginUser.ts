@@ -19,6 +19,7 @@ export class LoginUser {
     const user = await this.userRepository.findByEmail(userCreateInput.email);
     if (!user) throw new UserNotExists();
 
+    await user.password.checkPassword(userCreateInput.password);
     this.eventEmitter.emit('UserLogined', user);
     return this.jwtService.sign({
       sub: user.id,

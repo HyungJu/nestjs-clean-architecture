@@ -6,6 +6,7 @@ import { User } from '@app/user/domain/user.entity';
 import { USER } from '@app/user/user.provider';
 import { APP } from '@app/app.provider';
 import { UserAlreadyExists } from '@app/user/domain/exceptions/UserAlreadyExists';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class CreateUser {
@@ -18,7 +19,11 @@ export class CreateUser {
     const user = await this.userRepository.findByEmail(userCreateInput.email);
     if (user) throw new UserAlreadyExists();
 
-    const res = await this.userRepository.create(userCreateInput);
+    const passwordEncrypted = await bcrypt.hash(userCreateInput.password, 10);
+    const res = await this.userRepository.create({
+      ...userCreateInput,
+      password: passwordEncrypted,
+    });
     const createdUser = new User(res);
     this.eventEmitter.emit('UserJoined', createdUser);
 

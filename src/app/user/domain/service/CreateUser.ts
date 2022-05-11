@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from '@app/user/domain/user.repository';
-import { EventEmitter } from '../../../../core/domain/event/EventEmitter';
+import { EventEmitter } from '@app/core/domain/event/EventEmitter';
 import { UserCreateInput } from '@app/user/domain/dtos/UserCreateInput';
 import { User } from '@app/user/domain/user.entity';
 import { USER } from '@app/user/user.provider';

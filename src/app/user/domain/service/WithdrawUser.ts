@@ -1,6 +1,6 @@
 import { HttpException, Inject, Injectable } from '@nestjs/common';
 import { UserRepository } from '@app/user/domain/user.repository';
-import { EventEmitter } from '../../../../core/domain/event/EventEmitter';
+import { EventEmitter } from '../../../core/domain/event/EventEmitter';
 import { USER } from '@app/user/user.provider';
 import { APP } from '@app/app.provider';
 

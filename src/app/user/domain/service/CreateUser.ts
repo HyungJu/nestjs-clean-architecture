@@ -10,7 +10,7 @@ import { UserAlreadyExists } from '@app/user/domain/exceptions/UserAlreadyExists
 @Injectable()
 export class CreateUser {
   constructor(
-    @Inject(USER.USER_REPOSITORY) private userRepository: UserRepository,
+    @Inject(USER.REPOSITORY) private userRepository: UserRepository,
     @Inject(APP.EVENT_EMITTER) private eventEmitter: EventEmitter,
   ) {}
 

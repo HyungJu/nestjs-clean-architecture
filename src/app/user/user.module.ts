@@ -9,17 +9,26 @@ import { USER } from '@app/user/user.provider';
 import { APP } from '@app/app.provider';
 import { CreateUser } from '@app/user/domain/service/CreateUser';
 import { LoginUser } from '@app/user/domain/service/LoginUser';
+import { JwtModule, JwtService } from '@nestjs/jwt';
+import { jwtConstants } from '@app/auth/constants';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [
+    DatabaseModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '60s' },
+    }),
+  ],
   providers: [
     UserJoinEvent,
     DatabaseUserRepository,
     WithdrawUser,
     CreateUser,
     LoginUser,
-    { provide: USER.USER_REPOSITORY, useClass: DatabaseUserRepository },
+    { provide: USER.REPOSITORY, useClass: DatabaseUserRepository },
     { provide: APP.EVENT_EMITTER, useExisting: EventEmitter2 },
+    { provide: USER.JWT_SERVICE, useExisting: JwtService },
   ],
   controllers: [UserController],
 })

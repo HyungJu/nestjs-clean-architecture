@@ -5,12 +5,14 @@ import { USER } from '@app/user/user.provider';
 import { APP } from '@app/app.provider';
 import { UserNotExists } from '@app/user/domain/exceptions/UserNotExists';
 import { UserLoginRequest } from '@app/user/presentation/dtos/UserLoginRequest';
+import { JwtService } from '@app/user/domain/service/JwtService';
 
 @Injectable()
 export class LoginUser {
   constructor(
-    @Inject(USER.USER_REPOSITORY) private userRepository: UserRepository,
+    @Inject(USER.REPOSITORY) private userRepository: UserRepository,
     @Inject(APP.EVENT_EMITTER) private eventEmitter: EventEmitter,
+    @Inject(USER.JWT_SERVICE) private jwtService: JwtService,
   ) {}
 
   async login(userCreateInput: UserLoginRequest): Promise<string> {
@@ -18,6 +20,8 @@ export class LoginUser {
     if (!user) throw new UserNotExists();
 
     this.eventEmitter.emit('UserLogined', user);
-    return user.generateJwtToken();
+    return this.jwtService.sign({
+      sub: user.id,
+    });
   }
 }

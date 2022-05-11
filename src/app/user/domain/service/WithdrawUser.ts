@@ -7,7 +7,7 @@ import { APP } from '@app/app.provider';
 @Injectable()
 export class WithdrawUser {
   constructor(
-    @Inject(USER.USER_REPOSITORY) private userRepository: UserRepository,
+    @Inject(USER.REPOSITORY) private userRepository: UserRepository,
     @Inject(APP.EVENT_EMITTER) private eventEmitter: EventEmitter,
   ) {}
 

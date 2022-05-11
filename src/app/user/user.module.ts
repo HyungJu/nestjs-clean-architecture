@@ -8,6 +8,7 @@ import { WithdrawUser } from '@app/user/domain/service/WithdrawUser';
 import { USER } from '@app/user/user.provider';
 import { APP } from '@app/app.provider';
 import { CreateUser } from '@app/user/domain/service/CreateUser';
+import { LoginUser } from '@app/user/domain/service/LoginUser';
 
 @Module({
   imports: [DatabaseModule],
@@ -16,6 +17,7 @@ import { CreateUser } from '@app/user/domain/service/CreateUser';
     DatabaseUserRepository,
     WithdrawUser,
     CreateUser,
+    LoginUser,
     { provide: USER.USER_REPOSITORY, useClass: DatabaseUserRepository },
     { provide: APP.EVENT_EMITTER, useExisting: EventEmitter2 },
   ],

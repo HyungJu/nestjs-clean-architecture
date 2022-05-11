@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { User } from '../../domain/user.entity';
 import { UserRepository } from '../../domain/user.repository';
 import { UserCreateInput } from '@app/user/domain/dtos/UserCreateInput';
+import { Password } from '@app/user/domain/password.entity';
 
 @Injectable()
 export class DatabaseUserRepository implements UserRepository {
@@ -11,10 +12,13 @@ export class DatabaseUserRepository implements UserRepository {
   async persist(user: User): Promise<User> {
     const res = await this.databaseService.user.update({
       where: { id: user.id },
-      data: user,
+      data: {
+        ...user,
+        password: user.password.toString(),
+      },
     });
 
-    return new User(res);
+    return user;
   }
 
   async create(data: UserCreateInput): Promise<User> {
@@ -27,7 +31,7 @@ export class DatabaseUserRepository implements UserRepository {
     });
 
     console.log(user);
-    return new User(user);
+    return new User({ ...user, password: new Password(user.password) });
   }
 
   async findByEmail(email: string): Promise<User | null> {
@@ -39,7 +43,7 @@ export class DatabaseUserRepository implements UserRepository {
 
     if (!user) return null;
     console.log(user);
-    return new User(user);
+    return new User({ ...user, password: new Password(user.password) });
   }
 
   async findById(id: string): Promise<User | null> {
@@ -51,6 +55,6 @@ export class DatabaseUserRepository implements UserRepository {
 
     if (!user) return null;
     console.log(user);
-    return new User(user);
+    return new User({ ...user, password: new Password(user.password) });
   }
 }

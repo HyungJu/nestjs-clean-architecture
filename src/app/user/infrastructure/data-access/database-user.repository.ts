@@ -1,4 +1,4 @@
-import { DatabaseService } from '@infrastructure/database/database.service';
+import { DatabaseService } from '../../../../core/infrastructure/database/database.service';
 import { Injectable } from '@nestjs/common';
 import { User } from '../../domain/user.entity';
 import { UserRepository } from '../../domain/user.repository';

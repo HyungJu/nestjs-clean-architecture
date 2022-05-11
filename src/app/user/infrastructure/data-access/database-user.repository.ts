@@ -8,6 +8,15 @@ import { UserCreateInput } from '@app/user/domain/dtos/UserCreateInput';
 export class DatabaseUserRepository implements UserRepository {
   constructor(private databaseService: DatabaseService) {}
 
+  async persist(user: User): Promise<User> {
+    const res = await this.databaseService.user.update({
+      where: { id: user.id },
+      data: user,
+    });
+
+    return new User(res);
+  }
+
   async create(data: UserCreateInput): Promise<User> {
     const user = await this.databaseService.user.create({
       data: {
@@ -18,17 +27,30 @@ export class DatabaseUserRepository implements UserRepository {
     });
 
     console.log(user);
-    return user;
+    return new User(user);
   }
 
-  async findUserByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<User | null> {
     const user = await this.databaseService.user.findFirst({
       where: {
         email,
       },
     });
 
+    if (!user) return null;
     console.log(user);
-    return user;
+    return new User(user);
+  }
+
+  async findById(id: string): Promise<User | null> {
+    const user = await this.databaseService.user.findFirst({
+      where: {
+        id,
+      },
+    });
+
+    if (!user) return null;
+    console.log(user);
+    return new User(user);
   }
 }

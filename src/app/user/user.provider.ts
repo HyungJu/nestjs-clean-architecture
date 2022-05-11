@@ -1,0 +1,3 @@
+export const USER = {
+  USER_REPOSITORY: 'USER_REPOSITORY',
+};
